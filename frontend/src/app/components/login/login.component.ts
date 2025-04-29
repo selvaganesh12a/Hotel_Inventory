@@ -34,7 +34,11 @@ export class LoginComponent {
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
           alert('Login successful!');
-          this.router.navigate(['/dashboard']); // or wherever you want to redirect
+          if (response.role === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/user-dashboard']); // optional
+          }
         },
         error: (error) => {
           this.errorMessage = error.error.message || 'Login failed';
